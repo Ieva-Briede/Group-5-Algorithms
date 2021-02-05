@@ -2,6 +2,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class InsertionSort {
+    public static int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
+    }
+
     public static void insertionSort(int array[]) {
         int n = array.length;
         for (int j = 1; j < n; j++) {
@@ -15,20 +19,32 @@ public class InsertionSort {
         }
     }
 
+    private static void measureTime(Runnable task) {
+        long startTime = System.currentTimeMillis();
+        task.run();
+        long elapsed = System.currentTimeMillis() - startTime;
+        System.out.println("execution time: " + elapsed + " ms");
+    }
+
     public static void main(String a[]){
-        int[] arr1 = {9,14,3,2,43,11,58,22};
-        System.out.println("Before Insertion Sort");
-        for(int i:arr1){
-            System.out.print(i+" ");
+        int[] arr1 = new int [10000];
+        for (int i =0; i < arr1.length; i++){
+            arr1[i] = getRandomNumber(0, 10000);
         }
-        System.out.println();
+        //System.out.println("Before Insertion Sort");
+        //for(int i:arr1){
+           // System.out.print(i+" ");
+       //}
+        //System.out.println();
 
-        insertionSort(arr1);//sorting array using insertion sort
+        measureTime(() ->insertionSort(arr1));//sorting array using insertion sort
 
-        System.out.println("After Insertion Sort");
-        for(int i:arr1){
-            System.out.print(i+" ");
-        }
+       //System.out.println("Insertion Sort");
+        //for(int i:arr1){
+          // System.out.print(i+" ");
+       // }
+        //System.out.println();
+        //measureTime(() ->insertionSort(arr1));
     }
 }
 
