@@ -1,96 +1,84 @@
 package com.company;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class HeapSort {
 
-  public static void heapify(int a[],int i,int n)
-  {
-
-    int l=2*i+1;
-    int r=2*i+2;
-
-
-    int temp,largest;
-
-    if(l<n && a[l]>a[i])
-      largest=l;
-    else
-      largest=i;
-
-    if(r<n && a[r]>a[largest])
-      largest=r;
-
-    if(largest !=i)
-    {
-      temp=a[largest];
-      a[largest]=a[i];
-      a[i]=temp;
-
-      heapify(a,largest,n);
+    public static int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
     }
 
-
-  }
-
-  public static void bheap(int a[])
-  {
-
-    for(int i=(a.length/2)-1;i>=0;i--)
-    {
-
-      heapify(a,i,a.length);
-
+    private static void measureTime(Runnable task) {
+        long startTime = System.currentTimeMillis();
+        task.run();
+        long elapsed = System.currentTimeMillis() - startTime;
+        System.out.println("execution time: " + elapsed + " ms");
     }
 
-  }
+    public void sort(int arr[]) {
+        int n = arr.length;
 
-  public static void Sort(int a[])
-  {
-    int temp,j,i;
+        // Build max heap
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(arr, n, i);
+        }
 
-    bheap(a);
+        // Heap sort
+        for (int i = n - 1; i >= 0; i--) {
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
 
-    for( i=(a.length)-1; i>0;)
-    {
-      temp=a[0];
-      a[0]=a[i];
-      a[i]=temp;
-      heapify(a,0,i--) ;
-
+            // Heapify root element
+            heapify(arr, i, 0);
+        }
     }
 
-  }
+    void heapify(int arr[], int n, int i) {
+        // Find largest among root, left child and right child
+        int largest = i;
+        int l = 2 * i + 1;
+        int r = 2 * i + 2;
 
-  public static void printarray(int a[])
-  {
-    System.out.println();
-    for(int i=0; i < a.length; i++)
-    {
+        if (l < n && arr[l] > arr[largest])
+            largest = l;
 
-      System.out.print(a[i]+" ");
+        if (r < n && arr[r] > arr[largest])
+            largest = r;
+
+        // Swap and continue heapifying if root is not largest
+        if (largest != i) {
+            int swap = arr[i];
+            arr[i] = arr[largest];
+            arr[largest] = swap;
+
+            heapify(arr, n, largest);
+        }
     }
 
-  }
-  public static void main(String[] args)
-  {
-    int n, res,i;
-    Scanner s = new Scanner(System.in);
-    System.out.print("Enter number of elements in the array:");
-    n = s.nextInt();
-    int a[] = new int[n];
-    System.out.println("Enter "+n+" elements ");
-    for( i=0; i < n; i++)
-    {
-      a[i] = s.nextInt();
+    // Function to print an array
+    static void printArray(int arr[]) {
+        int n = arr.length;
+        for (int i = 0; i < n; ++i)
+            System.out.print(arr[i] + " ");
+        System.out.println();
     }
 
-    System.out.println( "elements in array ");
-    printarray(a);
-    Sort(a);
-    System.out.println( "\nelements after sorting");
-    printarray(a);
+    // Driver code
+    public static void main(String args[]) {
 
-  }
+        int[] array = new int[10000];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = getRandomNumber(0, 10000);
+        }
 
+        printArray(array);
+        HeapSort hs = new HeapSort();
+        hs.sort(array);
+
+        System.out.println("Sorted array is");
+        measureTime(() ->printArray(array));
+
+    }
 }
