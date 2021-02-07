@@ -59,7 +59,7 @@ public class HeapSort {
         //System.out.println("Unsorted array: ");
         //System.out.println(Arrays.toString(array));
 
-        HeapSort_test hs = new HeapSort_test();
+        HeapSort hs = new HeapSort();
         hs.sort(array);
 
         //System.out.print("Heapsort: ");
