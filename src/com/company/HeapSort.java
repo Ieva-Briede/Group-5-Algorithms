@@ -1,7 +1,6 @@
 package com.company;
 
 import java.util.Arrays;
-import java.util.Scanner;
 
 public class HeapSort {
 
@@ -16,27 +15,22 @@ public class HeapSort {
         System.out.println("execution time: " + elapsed + " ms");
     }
 
-    public void sort(int arr[]) {
+    public void sort(int[] arr) {
         int n = arr.length;
-
-        // Build max heap
         for (int i = n / 2 - 1; i >= 0; i--) {
             heapify(arr, n, i);
         }
 
-        // Heap sort
         for (int i = n - 1; i >= 0; i--) {
             int temp = arr[0];
             arr[0] = arr[i];
             arr[i] = temp;
 
-            // Heapify root element
             heapify(arr, i, 0);
         }
     }
 
-    void heapify(int arr[], int n, int i) {
-        // Find largest among root, left child and right child
+    void heapify(int[] arr, int n, int i) {
         int largest = i;
         int l = 2 * i + 1;
         int r = 2 * i + 2;
@@ -47,7 +41,6 @@ public class HeapSort {
         if (r < n && arr[r] > arr[largest])
             largest = r;
 
-        // Swap and continue heapifying if root is not largest
         if (largest != i) {
             int swap = arr[i];
             arr[i] = arr[largest];
@@ -57,28 +50,20 @@ public class HeapSort {
         }
     }
 
-    // Function to print an array
-    static void printArray(int arr[]) {
-        int n = arr.length;
-        for (int i = 0; i < n; ++i)
-            System.out.print(arr[i] + " ");
-        System.out.println();
-    }
-
-    // Driver code
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
         int[] array = new int[10000];
         for (int i = 0; i < array.length; i++) {
             array[i] = getRandomNumber(0, 10000);
         }
+        //System.out.println("Unsorted array: ");
+        //System.out.println(Arrays.toString(array));
 
-        printArray(array);
-        HeapSort hs = new HeapSort();
+        HeapSort_test hs = new HeapSort_test();
         hs.sort(array);
 
-        System.out.println("Sorted array is");
-        measureTime(() ->printArray(array));
-
+        //System.out.print("Heapsort: ");
+        //System.out.println(Arrays.toString(array));
+        measureTime(() -> hs.sort(array));
     }
 }
