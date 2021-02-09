@@ -1,11 +1,7 @@
 import java.util.Arrays;
 
-public class quickSort_task {
+public class QuickSort {
 
-
-    public static int getRandomNumber(int min, int max) {
-        return (int) ((Math.random() * (max - min)) + min);
-    }
     public static void quickSort(int[] arr, int from, int to) {
 
         if (from < to) {
@@ -46,25 +42,5 @@ public class quickSort_task {
         int tmp = array[index1];
         array[index1] = array[index2];
         array[index2] = tmp;
-    }
-
-    private static void measureTime(Runnable task) {
-        long startTime = System.currentTimeMillis();
-        task.run();
-        long elapsed = System.currentTimeMillis() - startTime;
-        System.out.println("execution time: " + elapsed + " ms");
-    }
-
-
-    public static void main(String[] args) {
-
-        int[] array = new int[10000];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = getRandomNumber(0, 10000);
-        }
-        //System.out.println(Arrays.toString(array));
-        System.out.print("Quicksort ");
-        measureTime(() ->quickSort(array, 0, array.length - 1));
-        //System.out.println(Arrays.toString(array));
     }
 }
